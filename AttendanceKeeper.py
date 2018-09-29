@@ -33,15 +33,68 @@ if not hasNameFile:
             newMembers.append(userIn)
             print(newMembers)
     with open(nameFile, 'w') as csvfile:
-        filewriter = csv.writer(csvfile, delimiter=',',
-                            quotechar='|')
+        filewriter = csv.writer(csvfile, delimiter=',', quotechar='|')
         filewriter.writerow(newMembers)
 #%%
 #loading names from the csv file
 with open(nameFile, 'r') as csvfile:
     reader = csv.reader(csvfile)
     names = []
-    for name in reader:
-        names.append(name)
-    print(names)
+    for row in reader:
+        for name in row:
+            names.append(name)
+    print("Member List:", names)
+#%%
+# create a data file for each member if none exists yet
+for name in names:
+    hasFile = False
+    dataFileName = name + ".csv"
+    for file in os.listdir():
+        if file.__eq__(dataFileName):
+            hasFile = True
+    if not hasFile:
+        with open(dataFileName, 'w') as csvfile:
+            filewriter = csv.writer(csvfile, delimiter=',', quotechar='|')
+            
+print("Welcome to the Attendance Keeper!")
+
+#%%
+#defining actions
+
+def signIn(self, name):
     
+def signOut(self, name):
+    
+def show(self, name):
+    
+def add(self, name):
+    
+def remove(self, name):
+
+#%%
+#interactive session
+running = True
+while running:
+    print("Sign (I)n / Sign (O)ut / (S)how Information / (A)dd Member / (R)emove Member / (Q)uit")
+    mode = input().lower()
+    if mode.__eq__('q'):
+        running = False
+    else:
+        print("type in name or 'q' to quit")
+        userIn = input().lower()
+        if userIn.__eq__('q'):
+            print("returning back to mode selection")
+        else:
+            if userIn in names:
+                if mode.__eq__('i'):
+                    signIn(userIn)
+                elif mode.__eq__('o'):
+                    signOut(userIn)
+                elif mode.__eq__('s'):
+                    show(userIn)
+                elif mode.__eq__('a'):
+                    add(userIn)
+                elif mode.__eq__('r'):
+                    remove(userIn)
+            else:
+                print("name not in list, returning to mode selection")

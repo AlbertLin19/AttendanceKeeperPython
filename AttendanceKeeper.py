@@ -143,6 +143,7 @@ def show(name):
     print("total hours: " + str(totalHrs))
     if numAttendedMeetings != 0:
         print("average hours spent at an attended meeting: " + str(totalHrs/numAttendedMeetings))
+    print("rolling weekly attendance hour rate: " + str(totalHrs/weekNum))
 def showAll():
     for name in names:
         print("showing: " + name)
@@ -158,6 +159,7 @@ def showAll():
         print("total hours: " + str(totalHrs))
         if numAttendedMeetings != 0:
             print("average hours spent at an attended meeting: " + str(totalHrs/numAttendedMeetings))
+        print("rolling weekly attendance hour rate: " + str(totalHrs/weekNum))
         print()
 def calcTotalHours(name):
     fileName = name + '.csv'
@@ -179,14 +181,21 @@ def calcTotalHours(name):
     return hourCount, numAttendedMeetings
 #%%
 #interactive session
+weekNum = 1
 running = True
 while running:
-    print("sign (i)n / sign (o)ut / (s)how information / show (a)ll / (q)uit")
+    print("sign (i)n / sign (o)ut / (s)how information / show (a)ll / set (w)eek / (q)uit")
     mode = input().lower()
     if mode.__eq__('q'):
         running = False
     elif mode.__eq__('a'):
         showAll()
+    elif mode.__eq__('w'):
+        print("week number currently at: " + str(weekNum))
+        print("enter new week number")
+        userIn = input()
+        if userIn.isdigit():
+            weekNum = int(userIn)
     else:
         print("type in name or 'q' to quit")
         userIn = input().lower()

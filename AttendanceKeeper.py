@@ -16,7 +16,7 @@ import time
 #checking if file of names exists
 nameFile = 'AKNames.csv'
 hasNameFile = False
-for file in os.listdir():
+for file in os.listdir('.'):
     if file.__eq__(nameFile):
         hasNameFile = True
 #if it does not, then create one and initialize
@@ -49,7 +49,7 @@ with open(nameFile, 'r') as csvfile:
 for name in names:
     hasFile = False
     dataFileName = name + ".csv"
-    for file in os.listdir():
+    for file in os.listdir('.'):
         if file.__eq__(dataFileName):
             hasFile = True
     if not hasFile:
@@ -186,7 +186,9 @@ running = True
 while running:
     print("sign (i)n / sign (o)ut / (s)how information / show (a)ll / set (w)eek / (q)uit")
     mode = input().lower()
-    if mode.__eq__('q'):
+    if not mode.__eq__('i') and not mode.__eq__('o') and not mode.__eq__('s') and not mode.__eq__('a') and not mode.__eq__('w') and not mode.__eq__('q'):
+        print("not an available option, returning to option selection")
+    elif mode.__eq__('q'):
         running = False
     elif mode.__eq__('a'):
         showAll()
